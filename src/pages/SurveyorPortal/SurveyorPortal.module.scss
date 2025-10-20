@@ -1,0 +1,7 @@
+.container {
+  padding: 20px clamp(0.625rem, -4.25rem + 24.375vw, 25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  inline-size: 100%;
+}

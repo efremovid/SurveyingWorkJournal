@@ -1,0 +1,23 @@
+.container {
+  padding: 30px 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  inline-size: 100%;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 20px;
+
+  input {
+    padding: 10px;
+    border: inherit;
+    border-radius: inherit;
+  }
+}

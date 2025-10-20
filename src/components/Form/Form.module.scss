@@ -1,0 +1,23 @@
+.container {
+  inline-size: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.containerItem {
+  border: 1px solid rgb(118, 118, 118);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.time {
+  display: flex;
+  gap: 10px;
+}
+
+.add {
+  background: rgb(232, 232, 232);
+  padding: 10px;
+  border-radius: 5px;
+}

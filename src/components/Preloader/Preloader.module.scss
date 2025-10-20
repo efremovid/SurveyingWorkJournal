@@ -1,0 +1,39 @@
+.preloaderContainer {
+  width: 100%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  border-radius: calc(var(--height) / 2);
+}
+
+.preloaderBar {
+  height: var(--height);
+  background-color: var(--color);
+  border-radius: calc(var(--height) / 2);
+  animation: loading var(--duration) ease-in-out infinite;
+  
+  @keyframes loading {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+// Альтернативная анимация - заполнение
+.preloaderBar.alternative {
+  animation: fill var(--duration) ease-in-out infinite alternate;
+  
+  @keyframes fill {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+}

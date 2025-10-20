@@ -1,0 +1,18 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+    background: rgb(232, 232, 232);
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+.date {
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+}
+
+.link {
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+}

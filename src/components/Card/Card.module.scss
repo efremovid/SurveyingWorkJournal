@@ -1,0 +1,64 @@
+.container {
+  padding: 10px;
+  background: rgb(232, 232, 232);
+  inline-size: 100%;
+  display: flex;
+  gap: 10px;
+  border-radius: 5px;
+}
+
+.main {
+  display: flex;
+  inline-size: 100%;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input {
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.textarea {
+  border: 1px solid rgb(118, 118, 118);
+  background-color: rgb(255, 255, 255);
+  padding: 10px;
+  border-radius: 5px;
+  resize: none;
+  min-block-size: 70px;
+  max-block-size: 100px;
+}
+
+.time {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  border-radius: 5px;
+  padding: 10px;
+  color: rgb(0, 0, 0);
+}
+
+.btn:hover {
+  background: rgb(193, 193, 193);
+}
+
+.image {
+  inline-size: 30px;
+}
+
+.editInput {
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: rgb(252, 252, 252);
+}
