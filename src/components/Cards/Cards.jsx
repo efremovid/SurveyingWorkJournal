@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Card from "../Card/Card";
 import styles from "./Cards.module.scss";
 
-<<<<<<< HEAD
 const Cards = ({
   applications,
   deleteApp,
@@ -12,9 +11,6 @@ const Cards = ({
   changeAppInfo,
   changeTaskData,
 }) => {
-=======
-const Cards = ({ applications, deleteApp, updateApplication }) => {
->>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
   const [selectedStatus, setSelectedStatus] = useState("Все заявки");
 
   const filteredApp = () => {
@@ -86,15 +82,11 @@ const Cards = ({ applications, deleteApp, updateApplication }) => {
             key={application.id}
             application={application}
             deleteApp={deleteApp}
-<<<<<<< HEAD
             editId={editId}
             handleEditId={handleEditId}
             handleChangeNewInput={handleChangeNewInput}
             changeAppInfo={changeAppInfo}
             changeTaskData={changeTaskData}
-=======
-            updateApplication={updateApplication}
->>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
           />
         ))}
       </div>
