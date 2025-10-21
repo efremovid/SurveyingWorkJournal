@@ -18,13 +18,6 @@ const CustomerPortal = () => {
     status: "отправлено инженеру-геодезисту",
   });
 
-  const [editId, setEditId] = useState(null);
-  const [changeAppInfo, setChangeAppInfo] = useState({});
-
-  const handleChangeNewInput = (e) => {
-    setChangeAppInfo({ ...changeAppInfo, [e.target.name]: e.target.value });
-  };
-
   const handleChange = (e) => {
     setAppInfo({ ...appInfo, [e.target.name]: e.target.value });
   };
@@ -35,14 +28,9 @@ const CustomerPortal = () => {
       const response = await axios.post(
         "https://6862c75696f0cc4e34baf165.mockapi.io/applications",
         appInfo,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
-      const result = response.data;
-      setApplications([...applications, result]);
+      setApplications([...applications, response.data]);
     } catch (err) {
       console.error("Ошибка загрузки данных:", err.message);
     }
@@ -53,7 +41,7 @@ const CustomerPortal = () => {
       work: "",
       date: "",
       time: "",
-      status: "Отправлено инженеру-геодезисту",
+      status: "отправлено инженеру-геодезисту",
     });
   };
 
@@ -62,11 +50,25 @@ const CustomerPortal = () => {
       await axios.delete(
         `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${id}`
       );
-      setApplications((prevItems) =>
-        prevItems.filter((item) => item.id !== id)
-      );
+      setApplications((prev) => prev.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Ошибка при удалении:", error);
+    }
+  };
+
+  const updateApplication = async (id, updatedApp) => {
+    try {
+      const response = await axios.put(
+        `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${id}`,
+        updatedApp,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      const updated = response.data;
+      setApplications((prev) =>
+        prev.map((app) => (app.id === id ? updated : app))
+      );
+    } catch (err) {
+      console.error("Ошибка при обновлении данных:", err.message);
     }
   };
 
@@ -74,39 +76,10 @@ const CustomerPortal = () => {
     setIsLoading(true);
     axios
       .get("https://6862c75696f0cc4e34baf165.mockapi.io/applications")
-      .then((response) => {
-        setApplications(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .then((response) => setApplications(response.data))
+      .catch((error) => console.error("Ошибка загрузки:", error))
+      .finally(() => setIsLoading(false));
   }, []);
-
-  const changeTaskData = async (e, id) => {
-    e.preventDefault();
-    try {
-      const response = await axios.put(
-        `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${id}`,
-        changeAppInfo,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const updatedApp = response.data;
-      setApplications((prevApps) =>
-        prevApps.map((app) => (app.id === id ? updatedApp : app))
-      );
-      setEditId(null);
-      setChangeAppInfo({});
-    } catch (err) {
-      console.error("Ошибка при обновлении данных:", err.message);
-    }
-  };
 
   return (
     <div className={styles.container}>
@@ -124,15 +97,7 @@ const CustomerPortal = () => {
         <Cards
           applications={applications}
           deleteApp={deleteApp}
-          editId={editId}
-          setEditId={(id) => {
-            setEditId(id);
-            const selectedApp = applications.find((app) => app.id === id);
-            setChangeAppInfo(selectedApp); 
-          }}
-          handleChangeNewInput={handleChangeNewInput}
-          changeAppInfo={changeAppInfo}
-          changeTaskData={changeTaskData}
+          updateApplication={updateApplication}
         />
       )}
     </div>

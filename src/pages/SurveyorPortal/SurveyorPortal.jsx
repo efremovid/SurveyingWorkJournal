@@ -3,19 +3,11 @@ import styles from "./SurveyorPortal.module.scss";
 import Search from "../../componentsForSurveyor/Search/Search";
 import Cards from "../../componentsForSurveyor/Cards/Cards";
 import axios from "axios";
+import Preloader from "../../components/Preloader/Preloader";
 
 const SurveyorPortal = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [applications, setApplications] = useState([]);
-  useEffect(() => {
-    axios
-      .get("https://6862c75696f0cc4e34baf165.mockapi.io/applications")
-      .then((response) => {
-        setApplications(response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, []);
 
   const changeStatus = async (e, application, status) => {
     e.preventDefault();
@@ -45,10 +37,30 @@ const SurveyorPortal = () => {
     }
   };
 
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("https://6862c75696f0cc4e34baf165.mockapi.io/applications")
+      .then((response) => {
+        setApplications(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
   return (
     <div className={styles.container}>
       <Search />
-      <Cards applications={applications} changeStatus={changeStatus} />
+
+      {isLoading ? (
+        <Preloader />
+      ) : applications.length === 0 ? (
+        <p>Нет задач</p>
+      ) : (
+        <Cards applications={applications} changeStatus={changeStatus} />
+      )}
     </div>
   );
 };
