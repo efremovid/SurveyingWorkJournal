@@ -26,15 +26,35 @@ const Home = () => {
     ) {
       navigate("/surveyor-portal");
     } else {
+<<<<<<< HEAD
       alert("Неверно заполнены поля!");
+=======
+      alert("Введены некорректные данные!");
+>>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
     }
   };
 
   return (
     <div className={styles.container}>
       <form onSubmit={navigateToPortalByRole} className={styles.auth}>
+<<<<<<< HEAD
         <input name="login" onChange={handleChange} type="text" placeholder="Введите логин"/>
         <input name="password" onChange={handleChange} type="password" placeholder="Введите пароль"/>
+=======
+        <h2>Вход в личный кабинет</h2>
+        <input
+          name="login"
+          onChange={handleChange}
+          type="text"
+          placeholder="Введите ваш логин"
+        />
+        <input
+          name="password"
+          onChange={handleChange}
+          type="password"
+          placeholder="Введите ваш пароль"
+        />
+>>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
         <select name="role" onChange={handleChange}>
           <option value="заказчик">выберите вашу роль</option>
           <option value="заказчик">заказчик</option>

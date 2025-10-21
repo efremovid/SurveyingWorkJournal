@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
 import styles from "./Card.module.scss";
 
 const Card = ({ application, changeStatus }) => {
@@ -19,9 +18,13 @@ const Card = ({ application, changeStatus }) => {
           Статус:{" "}
           <select
             className={styles.select}
+<<<<<<< HEAD
             onChange={(e) => {
               changeStatus(e, application, e.target.value);
             }}
+=======
+            onChange={(e) => changeStatus(e, application, e.target.value)}
+>>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
           >
             <option value={application.status}>{application.status}</option>
             <option value="Принято в работу">Принято в работу</option>

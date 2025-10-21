@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 import styles from "./Card.module.scss";
 import { statusCodes } from "../../status";
 
+<<<<<<< HEAD
 const Card = ({
   application,
   deleteApp,
@@ -16,10 +17,27 @@ const Card = ({
 }) => {
   const date = application.date.split("-").reverse().join("-");
   const isEditingThisCard = editId === application.id;
+=======
+const Card = ({ application, deleteApp, updateApplication }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [localAppInfo, setLocalAppInfo] = useState(application);
+
+  const handleChange = (e) => {
+    setLocalAppInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSave = (e) => {
+    e.preventDefault();
+    updateApplication(application.id, localAppInfo);
+    setIsEditing(false);
+  };
+
+  const date = application.date?.split("-").reverse().join("-");
+>>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
 
   return (
     <div className={styles.container}>
-      {!isEditingThisCard ? (
+      {!isEditing ? (
         <div className={styles.main}>
           <p>Организация: {application.company}</p>
           <p>Ответственный: {application.name}</p>
@@ -32,68 +50,67 @@ const Card = ({
       ) : (
         <div className={styles.main}>
           <input
-            onChange={handleChangeNewInput}
-            className={styles.input}
-            value={changeAppInfo.company || ""}
-            type="text"
             name="company"
+            value={localAppInfo.company}
+            onChange={handleChange}
+            className={styles.input}
           />
           <input
-            onChange={handleChangeNewInput}
-            className={styles.input}
-            value={changeAppInfo.name || ""}
-            type="text"
             name="name"
+            value={localAppInfo.name}
+            onChange={handleChange}
+            className={styles.input}
           />
           <textarea
-            onChange={handleChangeNewInput}
-            className={styles.textarea}
-            value={changeAppInfo.work || ""}
             name="work"
+            value={localAppInfo.work}
+            onChange={handleChange}
+            className={styles.textarea}
           />
           <input
-            onChange={handleChangeNewInput}
-            className={styles.input}
-            value={changeAppInfo.place || ""}
-            type="text"
             name="place"
+            value={localAppInfo.place}
+            onChange={handleChange}
+            className={styles.input}
           />
           <div className={styles.time}>
             <input
-              onChange={handleChangeNewInput}
-              className={styles.containerItem}
-              value={changeAppInfo.date || ""}
-              type="date"
               name="date"
+              value={localAppInfo.date}
+              onChange={handleChange}
+              type="date"
+              className={styles.containerItem}
             />
             <input
-              onChange={handleChangeNewInput}
-              className={styles.containerItem}
-              type="time"
               name="time"
-              value={changeAppInfo.time || ""}
+              value={localAppInfo.time}
+              onChange={handleChange}
+              type="time"
+              className={styles.containerItem}
             />
           </div>
         </div>
       )}
 
       <div className={styles.buttons}>
-        <button
-          className={styles.btn}
-          onClick={() => deleteApp(application.id)}
-        >
+        <button className={styles.btn} onClick={() => deleteApp(application.id)}>
           <MdDeleteForever className={styles.image} />
         </button>
 
+<<<<<<< HEAD
         {application.status === statusCodes.default ? (!isEditingThisCard ? (
           <button
             className={styles.btn}
             onClick={() => handleEditId(application.id)}
           >
+=======
+        {!isEditing ? (
+          <button className={styles.btn} onClick={() => setIsEditing(true)}>
+>>>>>>> 85ab505c9d64558de9654e2377b7b934c2ce1c38
             <GrEdit />
           </button>
         ) : (
-          <button onClick={(e) => changeTaskData(e, application.id)}>
+          <button className={styles.btn} onClick={handleSave}>
             <FaCheck />
           </button>
         )) : ""}
