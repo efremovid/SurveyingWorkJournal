@@ -1,11 +1,10 @@
 import React from "react";
 import styles from "./Search.module.scss";
 
-const Search = () => {
+const Search = ({ handleSearch }) => {
   return (
     <form>
-      <input type="text" />
-      <button>Найти</button>
+      <input onChange={(e) => handleSearch(e.target.value)} type="text" />
     </form>
   );
 };

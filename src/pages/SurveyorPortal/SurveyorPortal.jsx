@@ -3,9 +3,24 @@ import styles from "./SurveyorPortal.module.scss";
 import Search from "../../componentsForSurveyor/Search/Search";
 import Cards from "../../componentsForSurveyor/Cards/Cards";
 import axios from "axios";
+import makeLowerCase from "../../utils/makeLowerCase";
 
 const SurveyorPortal = () => {
   const [applications, setApplications] = useState([]);
+  const [filteredApplications, setFilteredApplications] = useState([]);
+
+  const handleSearch = (search) => {
+    setFilteredApplications(
+      applications.filter((application) => {
+        return makeLowerCase(application)
+          .join(" ")
+          .includes(search.toLowerCase());
+      })
+    );
+  };
+
+  console.log(filteredApplications);
+
   useEffect(() => {
     axios
       .get("https://6862c75696f0cc4e34baf165.mockapi.io/applications")
@@ -45,10 +60,17 @@ const SurveyorPortal = () => {
     }
   };
 
+  console.log(applications);
+
   return (
     <div className={styles.container}>
-      <Search />
-      <Cards applications={applications} changeStatus={changeStatus} />
+      <Search handleSearch={handleSearch} />
+      <Cards
+        applications={
+          filteredApplications.length > 0 ? filteredApplications : applications
+        }
+        changeStatus={changeStatus}
+      />
     </div>
   );
 };

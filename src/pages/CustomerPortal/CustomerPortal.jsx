@@ -70,7 +70,13 @@ const CustomerPortal = () => {
     }
   };
 
-  useEffect(() => {
+  const handleEditId = (id) => {
+    setEditId(id);
+    const selectedApp = applications.find((app) => app.id === id);
+    setChangeAppInfo(selectedApp);
+  };
+
+  const fetchData = () => {
     setIsLoading(true);
     axios
       .get("https://6862c75696f0cc4e34baf165.mockapi.io/applications")
@@ -83,6 +89,13 @@ const CustomerPortal = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
+    const fetchInterval = setInterval(fetchData, 300000);
+
+    return () => clearInterval(fetchInterval);
   }, []);
 
   const changeTaskData = async (e, id) => {
@@ -125,11 +138,7 @@ const CustomerPortal = () => {
           applications={applications}
           deleteApp={deleteApp}
           editId={editId}
-          setEditId={(id) => {
-            setEditId(id);
-            const selectedApp = applications.find((app) => app.id === id);
-            setChangeAppInfo(selectedApp); 
-          }}
+          handleEditId={handleEditId}
           handleChangeNewInput={handleChangeNewInput}
           changeAppInfo={changeAppInfo}
           changeTaskData={changeTaskData}

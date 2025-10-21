@@ -6,7 +6,7 @@ const Cards = ({
   applications,
   deleteApp,
   editId,
-  setEditId,
+  handleEditId,
   handleChangeNewInput,
   changeAppInfo,
   changeTaskData,
@@ -83,7 +83,7 @@ const Cards = ({
             application={application}
             deleteApp={deleteApp}
             editId={editId}
-            setEditId={setEditId}
+            handleEditId={handleEditId}
             handleChangeNewInput={handleChangeNewInput}
             changeAppInfo={changeAppInfo}
             changeTaskData={changeTaskData}

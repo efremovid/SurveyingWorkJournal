@@ -3,12 +3,13 @@ import { MdDeleteForever } from "react-icons/md";
 import { GrEdit } from "react-icons/gr";
 import { FaCheck } from "react-icons/fa";
 import styles from "./Card.module.scss";
+import { statusCodes } from "../../status";
 
 const Card = ({
   application,
   deleteApp,
   editId,
-  setEditId,
+  handleEditId,
   handleChangeNewInput,
   changeAppInfo,
   changeTaskData,
@@ -84,10 +85,10 @@ const Card = ({
           <MdDeleteForever className={styles.image} />
         </button>
 
-        {!isEditingThisCard ? (
+        {application.status === statusCodes.default ? (!isEditingThisCard ? (
           <button
             className={styles.btn}
-            onClick={() => setEditId(application.id)}
+            onClick={() => handleEditId(application.id)}
           >
             <GrEdit />
           </button>
@@ -95,7 +96,7 @@ const Card = ({
           <button onClick={(e) => changeTaskData(e, application.id)}>
             <FaCheck />
           </button>
-        )}
+        )) : ""}
       </div>
     </div>
   );

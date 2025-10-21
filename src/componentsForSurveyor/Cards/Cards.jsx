@@ -6,7 +6,7 @@ const Cards = ({ applications , changeStatus}) => {
   return (
     <div className={styles.container}>
       {applications.map((application) => (
-        <Card application={application} changeStatus={changeStatus} />
+        <Card application={application} changeStatus={changeStatus}/>
       ))}
     </div>
   );
