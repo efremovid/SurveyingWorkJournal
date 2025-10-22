@@ -10,16 +10,59 @@ const SurveyorPortal = () => {
   const [filteredApplications, setFilteredApplications] = useState([]);
 
   const handleSearch = (search) => {
-    setFilteredApplications(
-      applications.filter((application) => {
-        return makeLowerCase(application)
-          .join(" ")
-          .includes(search.toLowerCase());
-      })
+    if (!search.trim()) {
+      setFilteredApplications([]);
+      return;
+    }
+
+    const lowerSearch = search.toLowerCase();
+    const filtered = applications.filter((app) =>
+      makeLowerCase(app).join(" ").includes(lowerSearch)
     );
+
+    setFilteredApplications(filtered);
   };
 
-  console.log(filteredApplications);
+  const changeStatus = async (application, status) => {
+    const appInfo = {
+      ...application,
+      status,
+    };
+
+    try {
+      const { data } = await axios.put(
+        `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${application.id}`,
+        appInfo,
+        { headers: { "Content-Type": "application/json" } }
+      );
+      setApplications((prev) =>
+        prev.map((item) => (item.id === application.id ? data : item))
+      );
+    } catch (err) {
+      console.error("Ошибка изменения статуса:", err.message);
+    }
+  };
+
+  const addComment = async (application, comment) => {
+    const appInfo = {
+      ...application,
+      comment,
+    };
+
+    try {
+      const { data } = await axios.put(
+        `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${application.id}`,
+        appInfo,
+        { headers: { "Content-Type": "application/json" } }
+      );
+
+      setApplications((prev) =>
+        prev.map((item) => (item.id === application.id ? data : item))
+      );
+    } catch (err) {
+      console.error("Ошибка добавления комментария:", err.message);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -28,40 +71,9 @@ const SurveyorPortal = () => {
         setApplications(response.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Ошибка загрузки данных:", error);
       });
   }, []);
-
-  const changeStatus = async (e, application, status) => {
-    e.preventDefault();
-
-    const appInfo = {
-      company: application.company,
-      name: application.name,
-      place: application.place,
-      work: application.work,
-      date: application.date,
-      status: status,
-    };
-    try {
-      const response = await axios.put(
-        `https://6862c75696f0cc4e34baf165.mockapi.io/applications/${application.id}`,
-        appInfo,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const result = response.data;
-      console.log(result);
-    } catch (err) {
-      console.error("Ошибка загрузки данных:", err.message);
-    }
-  };
-
-
-  console.log(applications);
 
   return (
     <div className={styles.container}>
@@ -71,6 +83,7 @@ const SurveyorPortal = () => {
           filteredApplications.length > 0 ? filteredApplications : applications
         }
         changeStatus={changeStatus}
+        addComment={addComment}
       />
     </div>
   );

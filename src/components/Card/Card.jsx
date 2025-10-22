@@ -28,6 +28,7 @@ const Card = ({
           <p>Дата: {date}</p>
           <p>Время: {application.time}</p>
           <p>Статус: {application.status}</p>
+          {application.comment && <p>Комментарий: {application.comment}</p>}
         </div>
       ) : (
         <div className={styles.main}>
@@ -85,18 +86,22 @@ const Card = ({
           <MdDeleteForever className={styles.image} />
         </button>
 
-        {application.status === statusCodes.default ? (!isEditingThisCard ? (
-          <button
-            className={styles.btn}
-            onClick={() => handleEditId(application.id)}
-          >
-            <GrEdit />
-          </button>
+        {application.status === statusCodes.default ? (
+          !isEditingThisCard ? (
+            <button
+              className={styles.btn}
+              onClick={() => handleEditId(application.id)}
+            >
+              <GrEdit />
+            </button>
+          ) : (
+            <button onClick={(e) => changeTaskData(e, application.id)}>
+              <FaCheck />
+            </button>
+          )
         ) : (
-          <button onClick={(e) => changeTaskData(e, application.id)}>
-            <FaCheck />
-          </button>
-        )) : ""}
+          ""
+        )}
       </div>
     </div>
   );

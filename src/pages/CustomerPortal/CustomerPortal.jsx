@@ -15,7 +15,8 @@ const CustomerPortal = () => {
     work: "",
     date: "",
     time: "",
-    status: "отправлено инженеру-геодезисту",
+    status: "Отправлено инженеру-геодезисту",
+    comment: ""
   });
 
   const [editId, setEditId] = useState(null);
@@ -54,6 +55,7 @@ const CustomerPortal = () => {
       date: "",
       time: "",
       status: "Отправлено инженеру-геодезисту",
+      comment: ""
     });
   };
 
